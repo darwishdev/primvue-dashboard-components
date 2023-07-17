@@ -1,6 +1,7 @@
 {
     "roles_list": "roles list",
     "users_list": "users list",
+    "show_filters": "Click here to show filters",
     "new_role": "New Role",
     "error_summary": "Oh snap!",
     "role_create_summary": "Role saved!",

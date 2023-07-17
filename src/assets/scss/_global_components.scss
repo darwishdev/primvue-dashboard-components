@@ -93,3 +93,11 @@
     flex-wrap: wrap;
   }
 }
+
+.list-filters {
+  // display: none;
+  width: 100%;
+  background: var(--color-card);
+  // padding: 15px 10px;
+  border-radius: 6px;
+}

@@ -4,7 +4,10 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.ts",
+    "src/composables/*.ts",
+    "src/utils/*.ts",
     "src/**/*.json",
+    "src/types/*.ts",
     "src/**/*.vue"
   ],
   "exclude": [
@@ -12,6 +15,8 @@
   ],
   "compilerOptions": {
     "composite": true,
+    "module": "es2022",
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "@/*": [

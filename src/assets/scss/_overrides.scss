@@ -1,0 +1,64 @@
+.p-dialog {
+  background: var(--color-dialog) !important;
+  border-radius: 20px;
+}
+.formkit-input {
+  width: 100%;
+}
+
+.list-wrapper-upload {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  // max-height: 20px;
+  .p-fileupload {
+    margin-bottom: 0;
+    margin-inline-end: 10px;
+    & .p-fileupload-buttonbar {
+      padding: 0;
+      justify-content: center;
+      // margin-bottom: 10px;
+      & .p-button {
+        height: 34px;
+        margin-bottom: 10px;
+        &.p-fileupload-choose {
+          margin-bottom: 0;
+        }
+        &.p-disabled {
+          display: none;
+        }
+      }
+    }
+
+    & .p-fileupload-content {
+      // position: absolute;
+      // top: 90%;
+      padding: 0;
+      // padding: 20px;
+      // left: 50%;
+      border-radius: 10px;
+      border-radius: 6px;
+      background-color: transparent;
+      & .p-fileupload-file-details {
+        text-align: center;
+      }
+      & .p-fileupload-file-thumbnail {
+        display: none;
+      }
+      //   padding: 10px;
+      // & div {
+      //   display: none;
+      //   padding: 5px;
+      //   cursor: pointer;
+      //   background: var(--color-card) !important;
+      // }
+    }
+  }
+}
+
+// .hide-content {
+//   & .p-fileupload-content {
+//     display: none;
+//   }
+// }

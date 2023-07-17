@@ -13,7 +13,7 @@ onMounted(() => {
 <template>
   <div class="loading" v-if="loading"><img src="@/assets/loading.webp" /></div>
   <RouterView :key="$route.fullPath" />
-  <dynamic-dialog />
+  <dynamic-dialog dismissableMask />
 
   <toast>
     <template #message="slotProps">
