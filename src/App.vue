@@ -1,20 +1,24 @@
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { provide, ref, onMounted } from 'vue';
 import Toast from 'primevue/toast';
 import DynamicDialog from 'primevue/dynamicdialog';
-const loading = ref(true)
+import ProgressBar from 'primevue/progressbar';
+
+const isLoading = ref(true)
+const isProgressBarVisibile = ref(false)
+provide('isProgressBarVisibile', isProgressBarVisibile)
 onMounted(() => {
   setTimeout(() => {
-    loading.value = false
+    isLoading.value = false
   }, 2000);
 })
 </script>
 <template>
-  <div class="loading" v-if="loading"><img src="@/assets/loading.webp" /></div>
+  <ProgressBar v-if="isProgressBarVisibile" mode="indeterminate" class="progress"></ProgressBar>
+  <div class="loading" v-if="isLoading"><img src="@/assets/loading.webp" /></div>
   <RouterView :key="$route.fullPath" />
   <dynamic-dialog dismissableMask />
-
   <toast>
     <template #message="slotProps">
       <div class="flex toast-inner flex-column align-items-center" style="flex: 1">

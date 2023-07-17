@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import apiClient from '@/api/ApiMock';
-import type { RolesListResponse, RolesListRequest } from '@/api/ApiTypes'
+import type { RolesListResponse, RolesListRequest, RoleBulkCreateRequest } from '@/api/ApiTypes'
 import DataView from 'primevue/dataview';
 import { useDataFetcherList } from 'vue-data-fetcher'
 import { ref } from 'vue'
 import type { FormFindDataHandler, FormKitOptions, FormSubmitHandler, FormKitInput, FormKitComponent } from 'formkit-builder/types'
 import type {
-  RoleDeleteRestoreRequest, RoleCreateRequest, RoleCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
+  RoleDeleteRestoreRequest, RoleCreateRequest, RoleBulkCreateResponse, RoleCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
 } from '@/api/ApiTypes';
 import LogoError from '@/assets/logo-error.svg'
-import type { CreateForm, UpdateForm, CrudOptions, FilterForm } from '@/types';
+import type { CreateForm, UpdateForm, CrudOptions, FilterForm, ImportHandler } from '@/types';
 import { exportCSV } from "@/utils/helpers"
 import { errorHandler, sections, toastHandler } from './RoleForm'
 import type { DeleteRestoreHandler } from '@/types'
@@ -54,8 +54,8 @@ const options: CrudOptions = {
   title: "roles_list",
   showCreateButton: true,
   feature: 'roles',
-  showImportButton: true,
   showExportButton: true,
+  importTemplateLink: "https://static.exploremelon.com/mln_rms/import-templates/Roles.xlsx",
   showDeletedFilter: true,
 }
 const showDeletedData = ref(false)
@@ -72,7 +72,6 @@ const showDeletedHandler = (val: any) => {
 }
 const imported = (data: any) => {
   console.log('importd')
-  console.log(data[1])
 }
 const exportCSVv = () => {
 
@@ -110,11 +109,15 @@ const inputs: Array<FormKitInput | FormKitComponent> = [
 const filterForm: FilterForm = {
   inputs,
 }
+
+const importHandler: ImportHandler<RoleBulkCreateRequest, RoleBulkCreateResponse> = {
+  bulkCreate: apiClient.roleBulkCreate,
+}
 </script>
 
 <template>
-  <app-crud @imported="imported" @export="exportCSVv" :filterForm="filterForm" :createForm="createForm" :options="options"
-    @showDeleted="showDeletedHandler" class="roles">
+  <app-crud :importHandler="importHandler" @imported="imported" @export="exportCSVv" :filterForm="filterForm"
+    :createForm="createForm" :options="options" @showDeleted="showDeletedHandler" class="roles">
     <template #data>
       <div class="grid" v-if="loading">
         <app-card-loading class="col " v-for="i in 3" :key="i" />
