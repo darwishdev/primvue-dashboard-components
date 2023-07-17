@@ -4,7 +4,7 @@ import type {
     RolesListResponse,
     RoleDeleteRestoreRequest,
     RoleCreateResponse, RoleCreateRequest, RoleBulkCreateRequest, RoleBulkCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse,
-    UserCreateResponse, ApiClient, UserCreateRequest, UserUpdateRequest, UserUpdateResponse, UserFindRequest, UserFindResponse
+    UserCreateResponse, ApiClient, UserCreateRequest, UserUpdateRequest, UserUpdateResponse, UserFindRequest, UserFindResponse , UsersListResponse
 } from './ApiTypes'
 export const userCreateRequest: UserCreateRequest = {
     userName: "admin",
@@ -48,11 +48,34 @@ export const userUpdateResponse: UserUpdateResponse = {
 
 };
 
+export const usersListResponse: UsersListResponse = {
+        "users": [
+          {
+            "userId": 1,
+            "userName": "ahmed",
+            "userEmail": "ahmed@mln.com",
+            "userPhone": "01000101101",
+          },
+          {
+            "userId": 2,
+            "userName": "yossuf",
+            "userEmail": "yossuf@mln.com",
+            "userPhone": "01000101102",
+          }
+        ],
+        deleteUsers : [
+          {
+            "userId": 3,
+            "userName": "Kareem",
+            "userEmail": "kareemdeveloper@gmail.com",
+            "userPhone": "01118614244",
+          }
+        ]
+
+};
+
 export const userFindRequest: UserFindRequest = {
     userId: 1,
-
-
-
 };
 export const userFindResponse: UserFindResponse = {
     userId: 1,
@@ -187,6 +210,10 @@ const apiClient: ApiClient = {
     userUpdateWithGlobalErr: async (req: UserUpdateRequest): Promise<UserUpdateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         throw new Error("internal internalServerError")
+    },
+    usersList: async (): Promise<UsersListResponse> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return usersListResponse;
     },
     userFind: async (req: UserFindRequest): Promise<UserFindResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
