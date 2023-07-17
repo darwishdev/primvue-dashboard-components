@@ -51,11 +51,9 @@ export default defineComponent({
                 onConfirmed: () => emit('onShowcreateDialog'),
                 form: props.createForm,
                 useDialog,
-
             }
             createDialog = useCreateDialog(createDialogParms);
         }
-
 
         const handleFilter = (filterObject: Object) => {
             console.log('filterObject', filterObject)

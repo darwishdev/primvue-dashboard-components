@@ -63,7 +63,6 @@ const { responseData, loading, error, fetchData } = useDataFetcherList<RolesList
 function onDialogSubmitted(recordId: number) {
   const request: any = {
     roleId: recordId,
-
   }
 }
 
