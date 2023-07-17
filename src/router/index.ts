@@ -4,6 +4,7 @@ import RolesListView from '@/views/RolesListView.vue'
 import RoleUpdateView from '@/views/RoleUpdateView.vue'
 import RoleCreateView from '@/views/RoleCreateView.vue'
 import UsersListView from '@/views/UsersListView.vue'
+import ExampleDataList from '@/views/exampleDataList.vue'
 import AppLayout from '@/components/AppLayout.vue'
 
 const router = createRouter({
@@ -37,6 +38,11 @@ const router = createRouter({
           path: '/users',
           name: 'users_list',
           component: UsersListView
+        },
+        {
+          path: '/example',
+          name: 'example_list',
+          component: ExampleDataList
         },
       ]
     },
