@@ -5,7 +5,7 @@ import type {
 export type CrudOptions = {
     title: string
     feature: string
-    showImportButton: boolean
+    importTemplateLink?: string
     showExportButton: boolean
     showCreateButton: boolean
     showDeletedFilter: boolean

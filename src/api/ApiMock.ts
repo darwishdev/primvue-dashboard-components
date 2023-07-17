@@ -242,7 +242,7 @@ const apiClient: ApiClient = {
         return roleCreateResponse;
     },
     roleBulkCreate: async (req: RoleBulkCreateRequest): Promise<RoleBulkCreateResponse> => {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         return roleBulkCreateResponse;
     },
     getRolesInput: async (): Promise<FormKitSelectOptions[]> => {
