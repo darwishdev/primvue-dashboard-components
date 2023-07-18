@@ -77,7 +77,7 @@ export type CreateForm = {
     toastHandler?: FormKitToastHandler
 }
 ```
-You should have got familliar with `CreateForm` type properties as you have used them before while using formkit-builder package. For a comprehensive understanding of what values should be passed to the 'sections', 'options', 'submitHandler', and 'toastHandler' properties, please refer back to the 'formkit-builder' documentation. This resource provides detailed information on how to correctly utilize these properties.
+You should have got familliar with `CreateForm` type properties as you have used them before while using formkit-builder package. For a comprehensive understanding of what values should be passed to the 'sections', 'options', 'submitHandler', and 'toastHandler' properties, please refer back to the ['formkit-builder documentation'](https://github.com/darwishdev/formkit-builder/blob/aa55dedafb4408f5a329e972e2b8dc7d02342f50/formkit-bulider.md). This resource provides detailed information on how to correctly utilize these properties.
 
 
 Example : 
@@ -564,7 +564,8 @@ export type UpdateForm = {
     toastHandler?: FormKitToastHandler
 }
 ```
-You should have got familliar with `UpdateForm` type properties as you have used them before while using formkit-builder package. For a comprehensive understanding of what values should be passed to the 'sections', 'options', 'submitHandler', 'findHandler', and 'toastHandler' properties, please refer back to the 'formkit-builder' documentation. This resource provides detailed information on how to correctly utilize these properties.
+You should have got familliar with `UpdateForm` type properties as you have used them before while using formkit-builder package. For a comprehensive understanding of what values should be passed to the 'sections', 'options', 'submitHandler', 'findHandler', and 'toastHandler' properties, please refer back to the ['formkit-builder documentation'](https://github.com/darwishdev/formkit-builder/blob/aa55dedafb4408f5a329e972e2b8dc7d02342f50/formkit-bulider.md). This resource provides detailed information on how to correctly utilize these properties.
+
 
 
 **deleteRestoreHandler(optional , DeleteRestoreHandler)** :  is an optional prop that accepts an object of the `DeleteRestoreHandler` type. This prop is utilized to pass the `DeleteRestore` function, which is invoked upon clicking the delete button. 
