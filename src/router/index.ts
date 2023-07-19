@@ -4,7 +4,8 @@ import RolesListView from '@/views/RolesListView.vue'
 import RoleUpdateView from '@/views/RoleUpdateView.vue'
 import RoleCreateView from '@/views/RoleCreateView.vue'
 import UsersListView from '@/views/UsersListView.vue'
-import ExampleDataList from '@/views/exampleDataList.vue'
+import UnauthorizedView from '@/views/UnauthorizedView.vue'
+import LoginView from '@/views/LoginView.vue'
 import AppLayout from '@/components/AppLayout.vue'
 import { can } from '@/utils/helpers'
 function snakeToCamel(str: string) {
@@ -42,11 +43,6 @@ const router = createRouter({
           name: 'users_list',
           component: UsersListView
         },
-        {
-          path: '/example',
-          name: 'example_list',
-          component: ExampleDataList
-        },
       ]
     },
     {
@@ -63,14 +59,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.name != 'login') {
-    if (!localStorage.getItem('token')) {
-      localStorage.removeItem('permissions')
-      localStorage.removeItem('sideBar')
-      next({ name: 'login' })
-    }
-  }
-  if (!can(snakeToCamel('role_create')) && to.name != 'unauthorized' && to.name != 'login') {
+  if (!can(snakeToCamel('users_list')) && to.name != 'unauthorized' && to.name != 'login') {
     next({ name: 'unauthorized' })
   }
   next()
