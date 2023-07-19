@@ -4,12 +4,7 @@ import RolesListView from '@/views/RolesListView.vue'
 import RoleUpdateView from '@/views/RoleUpdateView.vue'
 import RoleCreateView from '@/views/RoleCreateView.vue'
 import UsersListView from '@/views/UsersListView.vue'
-<<<<<<< HEAD
 import ExampleDataList from '@/views/exampleDataList.vue'
-=======
-import UnauthorizedView from '@/views/UnauthorizedView.vue'
-import LoginView from '@/views/LoginView.vue'
->>>>>>> 5dac46e (update formkit builder to get file upload)
 import AppLayout from '@/components/AppLayout.vue'
 import { can } from '@/utils/helpers'
 function snakeToCamel(str: string) {
