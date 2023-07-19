@@ -16,6 +16,7 @@ const app = createApp(App)
 const uploadHandler: UploadHandler = {
     fileUpload: apiClient.fileUpload,
     fileRemove: apiClient.fileRemove,
+    baseImageUrl: import.meta.env.VITE_IMG_URL
 }
 app.use(DialogService).use(PrimVueDashboardComponents, { uploadHandler, useDialog, useToast, formKitConfig })
     .use(router)

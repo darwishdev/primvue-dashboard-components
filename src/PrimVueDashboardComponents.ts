@@ -1,6 +1,5 @@
 import type { App } from "vue"
 import * as components from "./components"
-import formKitConfig from './plugins/formkit.config'
 import PrimeVue from 'primevue/config'
 import i18n from './plugins/i18n'
 import DialogService from 'primevue/dialogservice';
@@ -17,7 +16,7 @@ export default {
             .use(i18n)
             .use(DialogService)
             .use(ToastService)
-            .use(FormkitBuilder, { useToast: options.useToast, i18n, formKitConfig, uploadHandler: options.uploadHandler })
+            .use(FormkitBuilder, { useToast: options.useToast, i18n, formKitConfig: options.formKitConfig, uploadHandler: options.uploadHandler })
 
         Object.keys(components).forEach((key: string) => {
             app.component(key, components[key as keyof typeof components])
