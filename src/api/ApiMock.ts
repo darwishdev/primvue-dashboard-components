@@ -1,10 +1,13 @@
-import type { FormKitSelectOptions } from 'formkit-builder/types'
+import type {
+    FormKitSelectOptions, FileUploadRequest, FileUploadResponse, FileRemoveRequest
+} from 'formkit-builder/types'
+import permissions from '@/api/permissions'
 
 import type {
     RolesListResponse,
     RoleDeleteRestoreRequest,
     RoleCreateResponse, RoleCreateRequest, RoleBulkCreateRequest, RoleBulkCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse,
-    UserCreateResponse, ApiClient, UserCreateRequest, UserUpdateRequest, UserUpdateResponse, UserFindRequest, UserFindResponse , UsersListResponse
+    UserCreateResponse, ApiClient, UserCreateRequest, UserUpdateRequest, UserUpdateResponse, UserFindRequest, UserFindResponse, UsersListResponse
 } from './ApiTypes'
 export const userCreateRequest: UserCreateRequest = {
     userName: "admin",
@@ -24,6 +27,58 @@ export const userCreateResponse: UserCreateResponse = {
     }
 
 };
+
+
+
+const loginRequest: LoginRequest = {
+    userName: 'ahmed@mln.com',
+    userPassword: '12345678',
+}
+const loginResponse: LoginResponse = {
+    user: {
+        userName: 'ahmeddarwish',
+        userPhone: '01022052546',
+        userEmail: 'ahmed@mln.com',
+    },
+    userPermissions: [
+        'dashboardView',
+        'rolesList',
+        'roleCreate',
+        'usersList',
+        'userCreate',
+        'userUpdate',
+        'userDeleteRestore',
+        'userFind',
+    ],
+    tokens: {
+        access_token: "asdkjfyhkjdfgakfgsakfgasjkghasdfkjg",
+        refresh_token: "asdl'asiedyrf9pw8e6r8q7we6q5876we547",
+    },
+    sideBar: {
+        items: [
+            { key: '0', label: 'Dashboard', icon: 'pi pi-fw pi-chart-bar', to: { name: 'dashboard_view' } },
+            {
+                key: '0',
+                label: 'users',
+                icon: 'pi pi-fw pi-user',
+                items: [
+                    {
+                        key: '0_0',
+                        label: 'Roles List',
+                        icon: 'pi pi-fw pi-list',
+                        to: { name: 'roles_list' }
+                    },
+                    {
+                        key: '0_0',
+                        label: 'Users List',
+                        icon: 'pi pi-fw pi-list',
+                        to: { name: 'users_list' }
+                    }
+                ]
+            },
+        ]
+    }
+}
 export const userUpdateRequest: UserUpdateRequest = {
     userId: 1,
     userName: "admin2",
@@ -49,28 +104,28 @@ export const userUpdateResponse: UserUpdateResponse = {
 };
 
 export const usersListResponse: UsersListResponse = {
-        "users": [
-          {
+    "users": [
+        {
             "userId": 1,
             "userName": "ahmed",
             "userEmail": "ahmed@mln.com",
             "userPhone": "01000101101",
-          },
-          {
+        },
+        {
             "userId": 2,
             "userName": "yossuf",
             "userEmail": "yossuf@mln.com",
             "userPhone": "01000101102",
-          }
-        ],
-        deleteUsers : [
-          {
+        }
+    ],
+    deleteUsers: [
+        {
             "userId": 3,
             "userName": "Kareem",
             "userEmail": "kareemdeveloper@gmail.com",
             "userPhone": "01118614244",
-          }
-        ]
+        }
+    ]
 
 };
 
@@ -186,7 +241,27 @@ export const rolesListResponse: RolesListResponse = {
         }
     ]
 };
+
+export const fileUploadResponse: FileUploadResponse = {
+    fileName: "dashboard_07182023092203PM.png"
+}
+
 const apiClient: ApiClient = {
+    fileUpload: async (req: FileUploadRequest): Promise<FileUploadResponse> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return fileUploadResponse;
+    },
+    fileRemove: async (req: FileRemoveRequest): Promise<void> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+    },
+    login: async (req: LoginRequest): Promise<LoginResponse> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return loginResponse;
+    },
+    permissionsList: async (): Promise<PermissionsListResponse> => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return permissions;
+    },
     userCreate: async (req: UserCreateRequest): Promise<UserCreateResponse> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return userCreateResponse;

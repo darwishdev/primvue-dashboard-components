@@ -40,13 +40,6 @@ export interface UserCreateRequest {
 export interface UserCreateResponse {
     user?: User;
 }
-export interface UsersListRequest { }
-
-export interface UsersListResponse {
-    users: UsersListRow[];
-    deleteUsers: UsersListRow[];
- }
-
 
 export interface LoginRequest {
     userName: string;
@@ -103,12 +96,6 @@ export interface RolesListRow {
     roleName: string;
     roleUsers: number;
     rolePermissions: number;
-}
-export interface UsersListRow {
-    userId: number;
-    userName: string;
-    userEmail: string;
-    userPhone:  string;
 }
 
 export interface RolesListResponse {
@@ -183,7 +170,6 @@ export interface ApiClient {
     permissionsList: () => Promise<PermissionsListResponse>
     login: (req: LoginRequest) => Promise<LoginResponse>
     userCreate: (req: UserCreateRequest) => Promise<UserCreateResponse>
-    usersList: () => Promise<UsersListResponse>
     userCreateWithErr: (req: UserCreateRequest) => Promise<UserCreateResponse>
     userCreateWithGlobalErr: (req: UserCreateRequest) => Promise<UserCreateResponse>
     userUpdate: (req: UserUpdateRequest) => Promise<UserUpdateResponse>

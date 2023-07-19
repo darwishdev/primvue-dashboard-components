@@ -59,7 +59,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!can(snakeToCamel('users_list')) && to.name != 'unauthorized' && to.name != 'login') {
+  if (to.name != 'login') {
+    if (!localStorage.getItem('token')) {
+      localStorage.removeItem('permissions')
+      localStorage.removeItem('sideBar')
+      next({ name: 'login' })
+    }
+  }
+  if (!can(snakeToCamel(to.name as string)) && to.name != 'unauthorized' && to.name != 'login') {
     next({ name: 'unauthorized' })
   }
   next()
