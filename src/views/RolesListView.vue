@@ -3,18 +3,22 @@ import apiClient from '@/api/ApiMock';
 import type { RolesListResponse, RolesListRequest, RoleBulkCreateRequest } from '@/api/ApiTypes'
 import DataView from 'primevue/dataview';
 import { useDataFetcherList } from 'vue-data-fetcher'
-import { ref } from 'vue'
-import type { FormFindDataHandler, FormKitOptions, FormSubmitHandler, FormKitInput, FormKitComponent } from 'formkit-builder/types'
+import { ref, onBeforeMount } from 'vue'
+import type { FormFindDataHandler, FormKitOptions, FormSubmitHandler, FormKitInput, FormKitComponent } from 'formkit-builder/dist/types'
 import type {
   RoleDeleteRestoreRequest, RoleCreateRequest, RoleBulkCreateResponse, RoleCreateResponse, RoleUpdateRequest, RoleUpdateResponse, RoleFindRequest, RoleFindResponse
 } from '@/api/ApiTypes';
 import LogoError from '@/assets/logo-error.svg'
 import type { CreateForm, UpdateForm, CrudOptions, FilterForm, ImportHandler } from '@/types';
-import { exportCSV } from "@/utils/helpers"
+import { can, exportCSV } from "@/utils/helpers"
 import { errorHandler, sections, toastHandler } from './RoleForm'
 import type { DeleteRestoreHandler } from '@/types'
 const dataview = ref()
-
+onBeforeMount(() => {
+  if (!can('rolesList')) {
+    console.log('unauth')
+  }
+})
 const createOptions: FormKitOptions = {
   title: "role_create",
   allowBulkDelete: false,
@@ -53,7 +57,7 @@ const updateForm: UpdateForm = {
 const options: CrudOptions = {
   title: "roles_list",
   showCreateButton: true,
-  feature: 'roles',
+  feature: 'role',
   showExportButton: true,
   importTemplateLink: "https://static.exploremelon.com/mln_rms/import-templates/Roles.xlsx",
   showDeletedFilter: true,
@@ -107,7 +111,7 @@ const inputs: Array<FormKitInput | FormKitComponent> = [
 ]
 
 const filterForm: FilterForm = {
-  inputs,
+  inputs: inputs as FormKitInput[] | FormKitComponent[],
 }
 
 const importHandler: ImportHandler<RoleBulkCreateRequest, RoleBulkCreateResponse> = {

@@ -1,5 +1,6 @@
 {
     "roles_list": "roles list",
+    "unauth_error": "You are not authorized to do this action",
     "users_list": "users list",
     "show_filters": "Click here to show filters",
     "new_role": "New Role",

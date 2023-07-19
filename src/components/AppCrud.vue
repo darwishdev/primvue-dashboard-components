@@ -1,20 +1,22 @@
 <script  lang="ts">
-import { parseFile } from '@/utils/helpers'
+import { parseFile, can } from '@/utils/helpers'
 import Menu from 'primevue/menu';
 import { useRouter } from 'vue-router';
 import FileUpload from 'primevue/fileupload'
 import { inject, ref, defineComponent } from 'vue'
 import type { Ref } from 'vue'
 import { saveAs } from 'file-saver';
-
 import { reset } from '@formkit/core'
 import AccordionTab from 'primevue/accordiontab';
+import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 import Accordion from 'primevue/accordion';
 import useCreateDialog from '@/composables/useCreateDialog';
 import type { createDialogParms } from '@/composables/useCreateDialog';
+import { handleSuccessToast } from 'formkit-builder/helpers'
 import type { CrudOptions, CreateForm, FilterForm, DeleteRestoreHandler, ImportHandler } from '@/types'
 import { getRouteVariation } from '@/utils/routeUtils';
-import { optionsSymbol } from '@formkit/vue';
+// import { handleSuccessToast } from 'formkit-builder/helpers'
+import type { ToastServiceMethods } from 'formkit-builder/dist/types';
 export default defineComponent({
     props: {
         options: {
@@ -42,11 +44,14 @@ export default defineComponent({
         FileUpload,
         AccordionTab,
         Menu,
-
         Accordion,
     },
     setup(props, { emit }) {
         const useDialog = inject('useDialog') as Function
+        const useToast = inject('useToast') as () => ToastServiceMethods
+        const i18n = inject('i18n') as I18n
+        const { t } = i18n.global
+        const toast = useToast()
         const isProgressBarVisibile = inject('isProgressBarVisibile') as Ref<boolean>
 
         const { push, currentRoute } = useRouter()
@@ -56,7 +61,11 @@ export default defineComponent({
         let createDialog: any = undefined
         if (props.createForm) {
             const createDialogParms: createDialogParms = {
-                onConfirmed: () => emit('onShowcreateDialog'),
+                onConfirmed: () => {
+                    emit('onShowcreateDialog')
+                    // console.log(handleSuccessToast)
+                    // handleSuccessToast(props.createForm!.toastHandler, toast, t, props.options.title)
+                },
                 form: props.createForm,
                 useDialog,
 
@@ -101,6 +110,8 @@ export default defineComponent({
             props.importHandler.bulkCreate(data).then(res => {
                 if (props.importHandler!.callBack) props.importHandler!.callBack(res)
                 node.reset()
+                handleSuccessToast(props.importHandler!.toastHandler, toast, t, 'imported')
+
                 isProgressBarVisibile.value = false
             })
         }
@@ -129,6 +140,8 @@ export default defineComponent({
         const imprtExportMenuToggle = (event: any) => {
             imprtExportMenu.value.toggle(event);
         };
+
+        const showCreateButton = props.options.showCreateButton && can(`${props.options.feature}Create`)
         return {
             create,
             handleFilter,
@@ -138,6 +151,7 @@ export default defineComponent({
             handleDeletedFilter,
             imprtExportMenuToggle,
             isProgressBarVisibile,
+            showCreateButton,
             options: props.options,
             imprtExportMenu,
             imprtExportOptions,
@@ -154,7 +168,7 @@ export default defineComponent({
 <template>
     <div class="bg-card p-4 border-round " :class="{ 'disabled': isProgressBarVisibile }">
         <div class="flex border-round justify-content-between align-items-center border-1 border-200 p-3 mb-3">
-            <div class="mx-3" v-if="options.showCreateButton">
+            <div class="mx-3" v-if="showCreateButton">
                 <Button @click.prevent="create" label="New" severity="success" icon="pi pi-plus" />
                 <slot name="header-left-buttons" />
             </div>

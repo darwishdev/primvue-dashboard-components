@@ -5,7 +5,7 @@ import Sidebar from 'primevue/sidebar';
 import { ref, onMounted, watch } from 'vue'
 import type { Ref } from 'vue'
 import Menu from 'primevue/menu';
-import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import Avatar from 'primevue/avatar';
 import Toolbar from 'primevue/toolbar';
@@ -13,7 +13,7 @@ import Breadcrumb from 'primevue/breadcrumb';
 
 import type { MenuItem } from 'primevue/menuitem'
 const isMenuOpened = ref(false)
-const route = useRoute()
+const { push, currentRoute } = useRouter()
 const home = ref({
     icon: 'pi pi-home',
     to: '/',
@@ -25,11 +25,13 @@ const profileMenu = ref();
 
 
 
-let breadCrumbs: Ref<MenuItem[]> = route.meta.breadCrumbs as Ref<MenuItem[]>
+let breadCrumbs: Ref<MenuItem[]> = currentRoute.value.meta.breadCrumbs as Ref<MenuItem[]>
 const profileItems = ref([
     { separator: true },
     { label: 'Profile', icon: 'pi pi-fw pi-user' },
-    { label: 'Settings', icon: 'pi pi-fw pi-cog' },
+    {
+        label: 'Settings', icon: 'pi pi-fw pi-cog'
+    },
     { separator: true }
 ]);
 function toggleDesktopMenu() {
@@ -47,10 +49,14 @@ function toggleProfileMenu(event: Event) {
     profileMenu.value.toggle(event)
 }
 
-watch(() => route.fullPath, () => {
+watch(() => currentRoute.value.fullPath, () => {
     isSideBarVisible.value = false
 })
-
+const logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('permissions')
+    push('login')
+}
 onMounted(() => {
     if (localStorage.getItem('asideOpened') == 'true') {
         toggleDesktopMenu()
@@ -73,7 +79,7 @@ onMounted(() => {
             <template #start>
                 <icon-btn icon="bars" class="sidebar-toggler" @click.prevent="isSideBarVisible = !isSideBarVisible" />
                 <app-logo />
-                <Breadcrumb :home="home" v-if="route.meta.breadCrumbs" :model="breadCrumbs" />
+                <Breadcrumb :home="home" v-if="currentRoute.meta.breadCrumbs" :model="breadCrumbs" />
             </template>
 
             <template #end>
@@ -92,18 +98,18 @@ onMounted(() => {
                         </button>
                     </template>
                     <template #end>
-                        <button
+                        <button @click="logout"
                             class="w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround">
                             <i class="pi pi-sign-out" />
-                            <span class="ml-2">Log Out</span>
+                            <span class="ml-2">{{ $t('logout') }}</span>
                         </button>
                     </template>
                 </Menu>
             </template>
         </Toolbar>
         <div class="layout-main">
-            <Breadcrumb :home="home" v-if="route.meta.breadCrumbs" :model="breadCrumbs" />
-            <main class="page-content" :class="route.name">
+            <Breadcrumb :home="home" v-if="currentRoute.meta.breadCrumbs" :model="breadCrumbs" />
+            <main class="page-content" :class="currentRoute.name">
                 <RouterView />
             </main>
         </div>

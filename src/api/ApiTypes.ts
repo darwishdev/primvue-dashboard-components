@@ -1,5 +1,25 @@
-import type { FormKitSelectOptions } from 'formkit-builder/types'
+import type {
+    FileUploadRequest, FileUploadResponse, FileRemoveRequest
+} from 'formkit-builder/types'
+import type { FormKitSelectOptions } from 'formkit-builder/dist/types'
+export interface Permission {
+    permission_id: number
+    permission_name: string
+    permission_function: string
+    permission_description: string
+}
 
+export interface PermissionsListRow {
+    group: string;
+
+    permissions: Permission[];
+
+}
+export interface PermissionsListResponse {
+    permissions: PermissionsListRow[],
+    permissionsIds: number[]
+
+}
 export interface User {
     userId: number;
     userName: string;
@@ -27,6 +47,27 @@ export interface UsersListResponse {
     deleteUsers: UsersListRow[];
  }
 
+
+export interface LoginRequest {
+    userName: string;
+    userPassword: string;
+}
+
+export interface LoginResponse {
+    user: {
+        userName: string
+        userPhone: string
+        userEmail: string
+    },
+    userPermissions: string[]
+    tokens: {
+        access_token: string
+        refresh_token: string
+    },
+    sideBar: {
+        items: any[]
+    }
+}
 
 export interface UserUpdateRequest {
     userId: number;
@@ -139,6 +180,8 @@ export interface RoleDeleteRestoreRequest {
     roleId: number;
 }
 export interface ApiClient {
+    permissionsList: () => Promise<PermissionsListResponse>
+    login: (req: LoginRequest) => Promise<LoginResponse>
     userCreate: (req: UserCreateRequest) => Promise<UserCreateResponse>
     usersList: () => Promise<UsersListResponse>
     userCreateWithErr: (req: UserCreateRequest) => Promise<UserCreateResponse>
@@ -160,6 +203,8 @@ export interface ApiClient {
     roleUpdateWithGlobalErr: (req: RoleUpdateRequest) => Promise<RoleUpdateResponse>
     roleFind: (req: RoleFindRequest) => Promise<RoleFindResponse>
     roleFindWithErr: (req: RoleFindRequest) => Promise<RoleFindResponse>
+    fileRemove: (req: FileRemoveRequest) => Promise<void>
+    fileUpload: (req: FileUploadRequest) => Promise<FileUploadResponse>
     getRolesInput: () => Promise<FormKitSelectOptions[]>
     getRolesInputWithErr: () => Promise<FormKitSelectOptions[]>
 }

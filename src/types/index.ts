@@ -1,6 +1,8 @@
 import type {
     FormFindDataHandler, FormKitSection, FormKitOptions, FormSubmitHandler, FormKitToastHandler, FormKitInput, FormKitComponent
-} from "formkit-builder/types"
+} from "formkit-builder/dist/types"
+
+
 
 export type CrudOptions = {
     title: string

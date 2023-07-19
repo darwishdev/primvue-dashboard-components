@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FormKitOptions, FormSubmitHandler } from 'formkit-builder/types'
+import type { FormKitOptions, FormSubmitHandler } from 'formkit-builder/dist/types'
 import type { RoleCreateRequest, RoleCreateResponse } from '@/api/ApiTypes';
 import apiClient from '@/api/ApiMock';
 import { errorHandler, redirectRoute, sections, toastHandler } from './RoleForm'

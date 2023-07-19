@@ -37,3 +37,13 @@ export function parseFile(content: any, type: 'csv' | 'xlsx' | 'xls'): any[] {
     }
     return parseMapper[type](content)
 }
+
+
+
+export function can(functionName: string): boolean {
+    const permissions = atob(localStorage.getItem('permissions') as string)
+    console.log(permissions)
+    console.log(permissions.includes(functionName))
+    console.log(functionName)
+    return permissions.includes(functionName)
+}

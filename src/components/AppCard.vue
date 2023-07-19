@@ -9,6 +9,9 @@ import type { PropType } from 'vue'
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { getRouteVariation } from '@/utils/routeUtils';
+import type { ToastServiceMethods } from 'formkit-builder/dist/types'
+import { handleSuccessToast } from 'formkit-builder/helpers'
+import type { I18n } from 'vue-i18n/dist/vue-i18n.js';
 
 export default defineComponent({
     props: {
@@ -28,11 +31,20 @@ export default defineComponent({
     setup(props, { emit }) {
         const { push, currentRoute } = useRouter()
         const useDialog = inject('useDialog') as Function
+        const useToast = inject('useToast') as () => ToastServiceMethods
+        const toast = useToast()
+        const i18n = inject('i18n') as I18n
+        const { t } = i18n.global
         let deleteRestoreDialog = undefined as any
         let updateDialog = undefined as any
         if (props.deleteRestoreHandler) {
             const deleteRestoreDialogParm: deleteRestoreDialogParms = {
-                onConfirmed: () => emit('onDeleted', props.recordId),
+                onConfirmed: () => {
+                    console.log(handleSuccessToast)
+                    emit('onDeleted', props.recordId)
+                    handleSuccessToast(props.deleteRestoreHandler!.toastHandler, toast, t, 'deleted')
+
+                },
                 deleteRestoreHandler: props.deleteRestoreHandler,
                 useDialog,
                 recordId: props.recordId,

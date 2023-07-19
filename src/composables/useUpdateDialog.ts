@@ -40,6 +40,7 @@ export default function useUpdateDialog(params: updateDialogParms) {
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         dialog.open(UpdateFormComp, {
             props: {
+                dismissableMask: true,
                 style: {
                     width
                 },

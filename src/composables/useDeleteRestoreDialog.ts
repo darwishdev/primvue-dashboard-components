@@ -29,13 +29,16 @@ export default function useCreateDialog(params: deleteRestoreDialogParms) {
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         dialog.open(AppDialogContent, {
             props: {
+                dismissableMask: true,
+                header: "Confirm",
+
                 style: {
                     width
                 },
                 breakpoints,
                 modal: true,
             },
-            template: {
+            templates: {
                 footer: markRaw(AppDialogFooter)
             },
             onClose: (options: any) => {

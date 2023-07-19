@@ -77,23 +77,6 @@
   }
 }
 
-.permissions-input {
-  & .p-accordion-header {
-    background-color: var(--color-card);
-    border-radius: 6px;
-
-    &.p-highlight {
-      border-end-start-radius: 0;
-      border-end-end-radius: 0;
-    }
-  }
-  & .p-accordion-content {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-}
-
 .list-filters {
   // display: none;
   width: 100%;
@@ -122,5 +105,17 @@
     top: 0;
     left: 0;
     // background-color: red;
+  }
+}
+
+.error-section {
+  max-width: 70%;
+  background: var(--color-card);
+  border-radius: 6px;
+  margin: 50px auto;
+  padding: 30px;
+
+  @media (min-width: 1200px) {
+    max-width: 50%;
   }
 }

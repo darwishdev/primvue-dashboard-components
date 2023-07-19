@@ -18,7 +18,7 @@ onMounted(() => {
   <ProgressBar v-if="isProgressBarVisibile" mode="indeterminate" class="progress"></ProgressBar>
   <div class="loading" v-if="isLoading"><img src="@/assets/loading.webp" /></div>
   <RouterView :key="$route.fullPath" />
-  <dynamic-dialog dismissableMask />
+  <dynamic-dialog />
   <toast>
     <template #message="slotProps">
       <div class="flex toast-inner flex-column align-items-center" style="flex: 1">

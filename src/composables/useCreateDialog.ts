@@ -35,6 +35,7 @@ export default function useCreateDialog(params: createDialogParms) {
         const breakpoints = params.config && params.config.breakpoints ? params.config.breakpoints : defaultBreakPoint
         dialog.open(createFormComp, {
             props: {
+                dismissableMask: true,
                 style: {
                     width
                 },
